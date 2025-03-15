@@ -10,12 +10,11 @@
 #include <unistd.h>
 #endif
 
-// alguem me explica oq kct era pra ser essas variaveis?
-char caminho[9][4];
-char jogador1[],jogador2[];
+char* caminho[9][4];
+char jogador1[4],jogador2[4];
 char simb ='O';
-int nj=0, j1=0, j2=0, emp=0;
-_Bool enc=false;
+int nj=0, j1_win=0, j2_win=0, emp=0; // j1 eh um nome reservado da math.h, n use j1
+_Bool enc=false; // oq significa esse enc msm?
 
 // utilitarios
 
@@ -60,8 +59,8 @@ void estatistica(){
   printf("*       ESTATISTICA       *\n");
   printf("***************************\n");
   printf("*                         *\n");
-  printf("*        %c = %i          *\n",jogador1,j1);
-  printf("*        %c = %i          *\n",jogador2,j2);
+  printf("*        %c = %i          *\n",jogador1,j1_win);
+  printf("*        %c = %i          *\n",jogador2,j2_win);
   printf("*       Empate = %i       *\n",emp);
   printf("*                         *\n");
   printf("***************************\n");
@@ -69,7 +68,6 @@ void estatistica(){
 
 // recursos de partida
 
-// pra q kct isso aq serve?
 void inicializar(){
 
   for (int id=0;id<9;id++){
@@ -110,15 +108,13 @@ void gindex(){
 
 // funcao principal do jogo, pode ser chamada para iniciar uma partida
 void game(){
-  char j1_nome[4], j2_nome[4];
-  int jogada;
-  int turno, vez;
+  int jogada, vez, turno;
 
   printf("\nDigite o nome do jogador 1 (Maximo de 3 letras): ");
-  scanf("%3s", j1_nome);
+  scanf("%3s", jogador1);
 
   printf("\nDigite o nome do jogador 2 (Máximo de 3 letras): ");
-  scanf("%3s", j2_nome);
+  scanf("%3s", jogador2);
 
   while(1){
     vez = impar(turno);
@@ -126,13 +122,13 @@ void game(){
     gindex();
 
     if(vez == 0){
-      printf("\nTurno de %s", j1_nome);
+      printf("\nTurno de %s", jogador1);
       printf("\nFaça sua jogada: ");
-      scanf("%2s", jogada);
+      scanf("%i", &jogada);
     } else{
-      printf("\nTurno de %s", j2_nome);
+      printf("\nTurno de %s", jogador2);
       printf("\nFaça sua jogada: ");
-      scanf("%2s", jogada);
+      scanf("%i", &jogada);
     }
 
     printf("Jogada na casa: %i", jogada);
@@ -145,7 +141,7 @@ void game(){
 // main
 int main(){
   int escolha;
-  limpartela();
+  //limpartela();
 
   while(1){
     menu();
