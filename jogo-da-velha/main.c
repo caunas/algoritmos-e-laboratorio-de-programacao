@@ -142,27 +142,6 @@ void game(){
 }
 // fim dos recursos de partida
 
-//debug
-
-// utilitarios de teste, quem descobrir isso aq vai literalmente xitar no jogo da velha
-void dmenu(){
-  printf("***************************\n");
-  printf("*          DMENU          *\n");
-  printf("***************************\n");
-  printf("*                         *\n");
-  printf("*       1 - RANKING       *\n");
-  printf("*                         *\n");
-  printf("***************************\n");
-  printf("ESCOLHA A OPCAO DESEJADA: ");
-}
-
-void debug_tools(){
-  printf("Debug mode = True");
-  dmenu();
-}
-
-//fim do debug
-
 // main
 int main(){
   int escolha;
@@ -181,9 +160,6 @@ int main(){
         break;
       case 3:
         sair();
-        break;
-      case 76:
-        debug_tools();
         break;
       default:
         limpartela();
