@@ -55,6 +55,7 @@ void menu(){
 
 void estatistica(){
   // exibe estatisticas
+  limpartela();
   printf("***************************\n");
   printf("*       ESTATISTICA       *\n");
   printf("***************************\n");
@@ -163,25 +164,35 @@ void debug_tools(){
 //fim do debug
 
 // main
-void main()
-{
+int main(){
   int escolha;
-
-  menu();
-  scanf("%i", &escolha);
   limpartela();
 
-  switch(escolha){
-    case 1:
-      game();
-      break;
-    case 2:
-      estatistica();
-      break;
-    case 3:
-      sair();
-    case 76:
-    debug_tools();
-    break;
+  while(1){
+    menu();
+    scanf("%i", &escolha);
+
+    switch(escolha){
+      case 1:
+        game();
+        break;
+      case 2:
+        estatistica();
+        break;
+      case 3:
+        sair();
+        break;
+      case 76:
+        debug_tools();
+        break;
+      default:
+        limpartela();
+        printf("Opção Invalida! Tente Novamente!\n");
+        sleep(3);
+        while (getchar() != '\n');
+    }
+    sleep(3);
+    limpartela();
   }
 }
+
