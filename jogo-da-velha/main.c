@@ -69,7 +69,7 @@ void estatistica(){
 // recursos de partida
 
 void inicializar(){
-
+  nj = 0;
   for (int id=0;id<9;id++){
     for (int c=0;c<3;c++){
       caminho[id][c]="";
@@ -79,7 +79,6 @@ void inicializar(){
 
 // so faz trocar o simbolo
 char simbolo(){
-
   if (simb == 'O'){
     simb = 'X';
   }else{
@@ -91,24 +90,40 @@ char simbolo(){
 
 // exibe o jogo (incompleto)
 void gindex(){
-  printf("* * * * * * * * * * * * \n");
-  printf("        *       *       \n");
-  printf("   1    *   2   *   3   \n");
-  printf("        *       *       \n");
-  printf("* * * * * * * * * * * * \n");
-  printf("        *       *       \n");
-  printf("   4    *   5   *   6   \n");
-  printf("        *       *       \n");
-  printf("* * * * * * * * * * * * \n");
-  printf("        *       *       \n");
-  printf("   7    *   8   *   9   \n");
-  printf("        *       *       \n");
-  printf("* * * * * * * * * * * * \n");
+    printf("* * * * * * * * * * * * \n");
+    printf("        *       *       \n");
+    printf("   %c    *   %c   *   %c   \n", caminho[1][0], caminho[2][0], caminho[3][0]);
+    printf("        *       *       \n");
+    printf("* * * * * * * * * * * * \n");
+    printf("        *       *       \n");
+    printf("   %c    *   %c   *   %c   \n", caminho[4][0], caminho[5][0], caminho[6][0]);
+    printf("        *       *       \n");
+    printf("* * * * * * * * * * * * \n");
+    printf("        *       *       \n");
+    printf("   %c    *   %c   *   %c   \n", caminho[7][0], caminho[8][0], caminho[9][0]);
+    printf("        *       *       \n");
+    printf("* * * * * * * * * * * * \n");
 }
 
 // funcao principal do jogo, pode ser chamada para iniciar uma partida
+int verificar_jogada(int jogada, char* jogador){
+  if(caminho[jogada][0] != ""){
+    /*
+    printf("Jogada de %s na casa: %i\n", jogador, jogada);
+    jogada -=1;
+    caminho[jogada][0] = simb;
+    sleep(2);
+    */
+    return 1;
+  } else{
+    //printf("Quadrado ocupado...");
+    return 0;
+  }
+}
+
 void game(){
-  int jogada, vez, turno;
+  inicializar();
+  int jogada = 1, turno;
 
   printf("\nDigite o nome do jogador 1 (Maximo de 3 letras): ");
   scanf("%3s", jogador1);
@@ -117,22 +132,38 @@ void game(){
   scanf("%3s", jogador2);
 
   while(1){
-    vez = impar(turno);
-
+    jogada = -1;
+    limpartela();
     gindex();
 
-    if(vez == 0){
+    // verifica jogador pelo turno
+    if(impar(turno) == 1){
       printf("\nTurno de %s", jogador1);
       printf("\nFaça sua jogada: ");
       scanf("%i", &jogada);
+      if(verificar_jogada (jogada, jogador1) == 0){
+        printf("Jogada Valida\n");
+        caminho[jogada][0] = simb;
+        sleep(3);
+      } else{
+        printf("\nJogada Invalida. Turno perdido.\n");
+        sleep(3);
+      }
     } else{
       printf("\nTurno de %s", jogador2);
       printf("\nFaça sua jogada: ");
       scanf("%i", &jogada);
+      if(verificar_jogada (jogada, jogador2) == 0){
+        printf("\nJogada Valida\n");
+        caminho[jogada][0] = simb;
+        sleep(3);
+      } else{
+        printf("\nJogada Invalida. Turno perdido.\n");
+        sleep(3);
+      }
     }
-
-    printf("Jogada na casa: %i", jogada);
-
+    simbolo();
+    turno++;
     continue;
   }
 }
@@ -141,7 +172,6 @@ void game(){
 // main
 int main(){
   int escolha;
-  //limpartela();
 
   while(1){
     menu();
