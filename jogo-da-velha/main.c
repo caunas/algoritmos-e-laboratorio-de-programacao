@@ -14,7 +14,7 @@ char* caminho[9][4];
 char jogador1[4],jogador2[4];
 char simb ='O';
 int nj=0, j1_win=0, j2_win=0, emp=0; // j1 eh um nome reservado da math.h, n use j1
-_Bool enc=false; // oq significa esse enc msm?
+_Bool enc=false; // essa é uma variável para declarar o vencedor aparentemente
 
 // utilitarios
 
