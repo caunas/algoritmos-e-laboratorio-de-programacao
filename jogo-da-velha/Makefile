@@ -7,4 +7,3 @@ jogodavelha: main.c
 
 clean:
 	@rm jogodavelha
-
