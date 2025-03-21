@@ -10,7 +10,7 @@
 #include <unistd.h>
 #endif
 
-char* caminho[9][4];
+char caminho[10];
 char jogador1[4],jogador2[4];
 char simb ='O';
 int nj=0, j1_win=0, j2_win=0, emp=0; // j1 eh um nome reservado da math.h, n use j1
@@ -59,8 +59,8 @@ void estatistica(){
   printf("*       ESTATISTICA       *\n");
   printf("***************************\n");
   printf("*                         *\n");
-  printf("*        %c = %i          *\n",jogador1,j1_win);
-  printf("*        %c = %i          *\n",jogador2,j2_win);
+  printf("*        %s = %i          *\n",jogador1,j1_win);
+  printf("*        %s = %i          *\n",jogador2,j2_win);
   printf("*       Empate = %i       *\n",emp);
   printf("*                         *\n");
   printf("***************************\n");
@@ -69,10 +69,10 @@ void estatistica(){
 // recursos de partida
 
 void inicializar(){
-  nj = 0;
-  for (int id=0;id<9;id++){
+  nj = 1;
+  for (int id=0;id<10;id++){
     for (int c=0;c<3;c++){
-      caminho[id][c]="";
+      caminho[id]='?';
     }
   }
 }
@@ -92,22 +92,22 @@ char simbolo(){
 void gindex(){
     printf("* * * * * * * * * * * * \n");
     printf("        *       *       \n");
-    printf("   %c    *   %c   *   %c   \n", caminho[1][0], caminho[2][0], caminho[3][0]);
+    printf("   %c    *   %c   *   %c   \n", caminho[1], caminho[2], caminho[3]);
     printf("        *       *       \n");
     printf("* * * * * * * * * * * * \n");
     printf("        *       *       \n");
-    printf("   %c    *   %c   *   %c   \n", caminho[4][0], caminho[5][0], caminho[6][0]);
+    printf("   %c    *   %c   *   %c   \n", caminho[4], caminho[5], caminho[6]);
     printf("        *       *       \n");
     printf("* * * * * * * * * * * * \n");
     printf("        *       *       \n");
-    printf("   %c    *   %c   *   %c   \n", caminho[7][0], caminho[8][0], caminho[9][0]);
+    printf("   %c    *   %c   *   %c   \n", caminho[7], caminho[8], caminho[9]);
     printf("        *       *       \n");
     printf("* * * * * * * * * * * * \n");
 }
 
 // funcao principal do jogo, pode ser chamada para iniciar uma partida
 int verificar_jogada(int jogada, char* jogador){
-  if(caminho[jogada][0] != ""){
+  if(caminho[jogada] != '?'){
     /*
     printf("Jogada de %s na casa: %i\n", jogador, jogada);
     jogada -=1;
@@ -121,9 +121,12 @@ int verificar_jogada(int jogada, char* jogador){
   }
 }
 
+
+
+// funcao principal do jogo
 void game(){
   inicializar();
-  int jogada = 1, turno;
+  int jogada, turno = 1;
 
   printf("\nDigite o nome do jogador 1 (Maximo de 3 letras): ");
   scanf("%3s", jogador1);
@@ -132,7 +135,6 @@ void game(){
   scanf("%3s", jogador2);
 
   while(1){
-    jogada = -1;
     limpartela();
     gindex();
 
@@ -143,7 +145,7 @@ void game(){
       scanf("%i", &jogada);
       if(verificar_jogada (jogada, jogador1) == 0){
         printf("Jogada Valida\n");
-        caminho[jogada][0] = simb;
+        caminho[jogada] = simb;
         sleep(3);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
@@ -155,7 +157,7 @@ void game(){
       scanf("%i", &jogada);
       if(verificar_jogada (jogada, jogador2) == 0){
         printf("\nJogada Valida\n");
-        caminho[jogada][0] = simb;
+        caminho[jogada] = simb;
         sleep(3);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
