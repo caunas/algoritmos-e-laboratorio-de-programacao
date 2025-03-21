@@ -61,7 +61,7 @@ void estatistica(){
   printf("*                         *\n");
   printf("*        %s = %i          *\n",jogador1,j1_win);
   printf("*        %s = %i          *\n",jogador2,j2_win);
-  printf("*       Empate = %i       *\n",emp);
+  printf("*       Empate = %i        *\n",emp);
   printf("*                         *\n");
   printf("***************************\n");
 }
@@ -121,7 +121,49 @@ int verificar_jogada(int jogada, char* jogador){
   }
 }
 
+// verifica vitoria
+_Bool verificar_vitoria(){
+  _Bool ver = false;
 
+  if(nj < 5){
+    return ver;
+  } else{
+    if(caminho[1] == caminho[2] && caminho[2] == caminho[3]){
+      if(caminho[1] != '?'){
+        ver = true;
+      }
+    }else if(caminho[4] == caminho[5] && caminho[5] == caminho[6]){
+      if(caminho[4] != '?'){
+        ver = true;
+      }
+    }else if(caminho[7] == caminho[8] && caminho[8] == caminho[9]){
+      if(caminho[7] != '?'){
+        ver = true;
+      }
+    }else if(caminho[1] == caminho[4] && caminho[4] == caminho[7]){
+      if(caminho[1] != '?'){
+        ver = true;
+      }
+    }else if(caminho[2] == caminho[5] && caminho[5] == caminho[8]){
+      if(caminho[2] != '?'){
+        ver = true;
+      }
+    }else if(caminho[3] == caminho[6] && caminho[6] == caminho[9]){
+      if(caminho[3] != '?'){
+        ver = true;
+      }
+    }else if(caminho[1] == caminho[5] && caminho[5] == caminho[9]){
+      if(caminho[1] != '?'){
+        ver = true;
+      }
+    }else if(caminho[3] == caminho[5] && caminho[5] == caminho[7]){
+      if(caminho[3] != '?'){
+        ver = true;
+      }
+    }
+  }
+  return ver;
+}
 
 // funcao principal do jogo
 void game(){
@@ -136,32 +178,53 @@ void game(){
 
   while(1){
     limpartela();
+    printf("Jogada N: %i\n", nj);
     gindex();
 
     // verifica jogador pelo turno
     if(impar(turno) == 1){
+      // turno do jogador 1
       printf("\nTurno de %s", jogador1);
       printf("\nFaça sua jogada: ");
       scanf("%i", &jogada);
+      // verifica se a jogada eh valida
       if(verificar_jogada (jogada, jogador1) == 0){
         printf("Jogada Valida\n");
         caminho[jogada] = simb;
-        sleep(3);
+        if(verificar_vitoria() == true){
+          limpartela();
+          gindex();
+          printf("Fim de jogo. Vitoria de %s\n", jogador1);
+          j1_win++;
+          sleep(3);
+          break;
+        }
+        sleep(2);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
-        sleep(3);
+        sleep(2);
       }
     } else{
+      // turno do jogador 2
       printf("\nTurno de %s", jogador2);
       printf("\nFaça sua jogada: ");
       scanf("%i", &jogada);
+      // verifica se a jogada eh valida
       if(verificar_jogada (jogada, jogador2) == 0){
         printf("\nJogada Valida\n");
         caminho[jogada] = simb;
-        sleep(3);
+        if(verificar_vitoria() == true){
+          limpartela();
+          gindex();
+          printf("Fim de jogo. Vitoria de %s\n", jogador2);
+          j2_win++;
+          sleep(3);
+          break;
+        }
+        sleep(2);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
-        sleep(3);
+        sleep(2);
       }
     }
     simbolo();
