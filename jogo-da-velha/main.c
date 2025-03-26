@@ -198,6 +198,15 @@ void game(){
           j1_win++;
           sleep(3);
           break;
+        } else{
+          if(nj >= 10){
+            limpartela();
+            gindex();
+            printf("Fim de jogo. Empate...\n");
+            emp++;
+            sleep(3);
+            break;
+          }
         }
         sleep(2);
       } else{
@@ -220,6 +229,15 @@ void game(){
           j2_win++;
           sleep(3);
           break;
+        } else{
+          if(nj >= 10){
+            limpartela();
+            gindex();
+            printf("Fim de jogo. Empate...\n");
+            emp++;
+            sleep(3);
+            break;
+          }
         }
         sleep(2);
       } else{
