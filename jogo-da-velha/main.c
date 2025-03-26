@@ -1,5 +1,5 @@
 #include <stdio.h> // Entrada e saida
-#include <string.h> // Manipular strings
+// #include <string.h> // Manipular strings
 #include <stdbool.h> // Manipular booleanos
 #include <stdlib.h> // Sla, essa lib faz tanta coisa, https://www.ibm.com/docs/pt-br/i/7.5?topic=files-stdlibh
 
@@ -232,6 +232,28 @@ void game(){
     continue;
   }
 }
+
+
+void jogar_novamente(){
+  char escolha;
+  while (getchar() != '\n'); // limpar o stdin atual, corrige bugs de entrada dupla
+  while(1){
+    printf("Deseja jogar novamente (S/N)? ");
+    scanf("%c", &escolha);
+  
+    if(escolha == 's'){
+      system("clear");
+      game();
+    } else if(escolha == 'n'){
+      break;
+    } else{
+      printf("Escolha invalida. ");
+      continue;
+    }
+  }
+    
+
+}
 // fim dos recursos de partida
 
 // main
@@ -245,6 +267,7 @@ int main(){
     switch(escolha){
       case 1:
         game();
+        jogar_novamente();
         break;
       case 2:
         estatistica();
@@ -262,4 +285,3 @@ int main(){
     limpartela();
   }
 }
-
