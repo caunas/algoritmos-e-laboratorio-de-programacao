@@ -2,8 +2,9 @@
 // #include <string.h> // Manipular strings
 #include <stdbool.h> // Manipular booleanos
 #include <stdlib.h> // Sla, essa lib faz tanta coisa, https://www.ibm.com/docs/pt-br/i/7.5?topic=files-stdlibh
+#include <locale.h> // necessário para utilizar o setlocale
 
-// Necessário para usar o clear
+// Necessário para usar o cls
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -26,7 +27,7 @@ void sair(){
 
 // limpa a tela (eu sei, eh redundante)
 void limpartela(){
-  system("clear");
+  system("cls");
 }
 
 int impar(int num){
@@ -36,10 +37,9 @@ int impar(int num){
     return 1;
   }
 }
-// fim dos utilitarios
 
+// exibe menu principal
 void menu(){
-  // exibe menu principal
   printf("***************************\n");
   printf("*       GAME VELHA        *\n");
   printf("***************************\n");
@@ -66,8 +66,16 @@ void estatistica(){
   printf("***************************\n");
 }
 
-// recursos de partida
+void nomear_jogadores(){
+  printf("\nDigite o nome do jogador 1 (Maximo de 3 letras): ");
+  scanf("%3s", jogador1);
 
+  printf("\nDigite o nome do jogador 2 (Máximo de 3 letras): ");
+  scanf("%3s", jogador2);
+}
+// fim dos utilitarios
+
+// recursos de partida
 void inicializar(){
   nj = 1;
   for (int id=0;id<10;id++){
@@ -112,7 +120,7 @@ int verificar_jogada(int jogada, char* jogador){
     printf("Jogada de %s na casa: %i\n", jogador, jogada);
     jogada -=1;
     caminho[jogada][0] = simb;
-    sleep(2);
+    Sleep(2);
     */
     return 1;
   } else{
@@ -170,20 +178,16 @@ void game(){
   inicializar();
   int jogada, turno = 1;
 
-  printf("\nDigite o nome do jogador 1 (Maximo de 3 letras): ");
-  scanf("%3s", jogador1);
-
-  printf("\nDigite o nome do jogador 2 (Máximo de 3 letras): ");
-  scanf("%3s", jogador2);
-
   while(1){
     limpartela();
     printf("Jogada N: %i\n", nj);
     gindex();
 
     // verifica jogador pelo turno
+
+    // turno do jogador 1
     if(impar(turno) == 1){
-      // turno do jogador 1
+
       printf("\nTurno de %s", jogador1);
       printf("\nFaça sua jogada: ");
       scanf("%i", &jogada);
@@ -191,27 +195,30 @@ void game(){
       if(verificar_jogada (jogada, jogador1) == 0){
         printf("Jogada Valida\n");
         caminho[jogada] = simb;
-        if(verificar_vitoria() == true){
-          limpartela();
-          gindex();
-          printf("Fim de jogo. Vitoria de %s\n", jogador1);
-          j1_win++;
-          sleep(3);
-          break;
-        } else{
-          if(nj >= 10){
+        // verificar vitoria
+        if(nj >= 4){
+          if(verificar_vitoria() == true){
             limpartela();
             gindex();
-            printf("Fim de jogo. Empate...\n");
-            emp++;
-            sleep(3);
+            printf("Fim de jogo. Vitoria de %s\n", jogador1);
+            j1_win++;
+            Sleep(3);
             break;
+          } else{
+            if(nj >= 10){
+              limpartela();
+              gindex();
+              printf("Fim de jogo. Empate...\n");
+              emp++;
+              Sleep(3);
+              break;
+            }
           }
         }
-        sleep(2);
+        Sleep(2);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
-        sleep(2);
+        Sleep(2);
       }
     } else{
       // turno do jogador 2
@@ -222,27 +229,29 @@ void game(){
       if(verificar_jogada (jogada, jogador2) == 0){
         printf("\nJogada Valida\n");
         caminho[jogada] = simb;
-        if(verificar_vitoria() == true){
-          limpartela();
-          gindex();
-          printf("Fim de jogo. Vitoria de %s\n", jogador2);
-          j2_win++;
-          sleep(3);
-          break;
-        } else{
-          if(nj >= 10){
+        if(nj >= 4){
+          if(verificar_vitoria() == true){
             limpartela();
             gindex();
-            printf("Fim de jogo. Empate...\n");
-            emp++;
-            sleep(3);
+            printf("Fim de jogo. Vitoria de %s\n", jogador2);
+            j2_win++;
+            Sleep(3);
             break;
+          } else{
+            if(nj >= 10){
+              limpartela();
+              gindex();
+              printf("Fim de jogo. Empate...\n");
+              emp++;
+              Sleep(3);
+              break;
+            }
           }
         }
-        sleep(2);
+        Sleep(2);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
-        sleep(2);
+        Sleep(2);
       }
     }
     simbolo();
@@ -250,7 +259,6 @@ void game(){
     continue;
   }
 }
-
 
 void jogar_novamente(){
   char escolha;
@@ -260,7 +268,7 @@ void jogar_novamente(){
     scanf("%c", &escolha);
   
     if(escolha == 's'){
-      system("clear");
+      system("cls");
       game();
     } else if(escolha == 'n'){
       break;
@@ -276,8 +284,12 @@ void jogar_novamente(){
 
 // main
 int main(){
+  setlocale(LC_ALL,"Portuguese");
   int escolha;
 
+  nomear_jogadores();
+  limpartela();
+  
   while(1){
     menu();
     scanf("%i", &escolha);
@@ -296,10 +308,10 @@ int main(){
       default:
         limpartela();
         printf("Opção Invalida! Tente Novamente!\n");
-        sleep(3);
+        Sleep(3);
         while (getchar() != '\n');
     }
-    sleep(3);
+    Sleep(3);
     limpartela();
   }
 }
