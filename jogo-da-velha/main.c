@@ -4,7 +4,7 @@
 #include <stdlib.h> // Sla, essa lib faz tanta coisa, https://www.ibm.com/docs/pt-br/i/7.5?topic=files-stdlibh
 #include <locale.h> // necessário para utilizar o setlocale
 
-// Necessário para usar o clear
+// Necessário para usar o cls
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -27,7 +27,7 @@ void sair(){
 
 // limpa a tela (eu sei, eh redundante)
 void limpartela(){
-  system("clear");
+  system("cls");
 }
 
 int impar(int num){
@@ -120,7 +120,7 @@ int verificar_jogada(int jogada, char* jogador){
     printf("Jogada de %s na casa: %i\n", jogador, jogada);
     jogada -=1;
     caminho[jogada][0] = simb;
-    sleep(2);
+    Sleep(2);
     */
     return 1;
   } else{
@@ -210,15 +210,15 @@ void game(){
               gindex();
               printf("Fim de jogo. Empate...\n");
               emp++;
-              sleep(3);
+              sleep(3)
               break;
             }
           }
         }
-        sleep(2);
+        Sleep(2);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
-        sleep(2);
+        Sleep(2);
       }
     } else{
       // turno do jogador 2
@@ -248,10 +248,10 @@ void game(){
             }
           }
         }
-        sleep(2);
+        Sleep(2);
       } else{
         printf("\nJogada Invalida. Turno perdido.\n");
-        sleep(2);
+        Sleep(2);
       }
     }
     simbolo();
@@ -268,7 +268,7 @@ void jogar_novamente(){
     scanf("%c", &escolha);
   
     if(escolha == 's'){
-      system("clear");
+      system("cls");
       game();
     } else if(escolha == 'n'){
       break;
@@ -308,10 +308,10 @@ int main(){
       default:
         limpartela();
         printf("Opção Invalida! Tente Novamente!\n");
-        sleep(3);
+        Sleep(3);
         while (getchar() != '\n');
     }
-    sleep(3);
+    Sleep(3);
     limpartela();
   }
 }
