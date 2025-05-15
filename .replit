@@ -1,0 +1,8 @@
+modules = ["c-clang14"]
+run = "cd jogo-da-velha && make clean && make build && ./jogodavelha"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "cd jogo-da-velha && make clear && make build && ./jogodavelha"]
